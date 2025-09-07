@@ -5,12 +5,10 @@ const connectDB = require('./config/db');
 const app = express();
 require('dotenv').config();
 
-// Connect database
 connectDB();
 
-// Middleware
 const corsOptions = {
-  origin: 'https://e-commerse-spa-frontend.vercel.app/', // frontend URL
+  origin: 'https://e-commerse-spa-frontend.vercel.app', 
   methods: 'GET,PUT,POST,DELETE',
   credentials: true,
   optionsSuccessStatus: 200
