@@ -9,7 +9,13 @@ require('dotenv').config();
 connectDB();
 
 // Middleware
-app.use(cors());
+const corsOptions = {
+  origin: 'https://e-commerse-spa-frontend.vercel.app/', // frontend URL
+  methods: 'GET,PUT,POST,DELETE',
+  credentials: true,
+  optionsSuccessStatus: 200
+};
+app.use(cors(corsOptions));
 app.use(express.json());
 
 // Routes
