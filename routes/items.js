@@ -17,12 +17,10 @@ router.get("/", auth, async (req, res) => {
     }
 
     const items = await Item.find(filter);
-
-    // 🔥 Ensure response is always an array
-    res.json(Array.isArray(items) ? items : []);
+    res.json(items);
   } catch (err) {
     console.error(err);
-    res.status(500).json({ message: "Server Error", items: [] }); // send empty array on error
+    res.status(500).json({ message: "Server Error" });
   }
 });
 

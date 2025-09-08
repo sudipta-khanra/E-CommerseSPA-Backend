@@ -8,12 +8,18 @@ require('dotenv').config();
 connectDB();
 
 const corsOptions = {
-  origin: 'https://e-commerse-spa-frontend.vercel.app', 
-  methods: 'GET,PUT,POST,DELETE',
-  credentials: true,
-  optionsSuccessStatus: 200
+  origin: [
+    "https://e-commerse-spa-frontend.vercel.app", // production
+    /\.vercel\.app$/ // allow all Vercel preview deployments
+  ],
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization", "x-auth-token"],
+  credentials: true
 };
+
 app.use(cors(corsOptions));
+app.options("*", cors(corsOptions)); // handle preflight
+
 app.use(express.json());
 
 // Routes
