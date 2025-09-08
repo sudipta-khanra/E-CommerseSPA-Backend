@@ -21,7 +21,6 @@ const corsOptions = {
 
 // Apply CORS
 app.use(cors(corsOptions));
-app.options("/*", cors(corsOptions)); // ✅ use "/*" instead of "*"
 
 // Middleware
 app.use(express.json());
