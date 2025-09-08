@@ -10,7 +10,6 @@ const auth = (req, res, next) => {
 
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
-    // Always store id in req.user
     req.user = { id: decoded.id, role: decoded.role || "user" };
 
     next();
@@ -19,7 +18,6 @@ const auth = (req, res, next) => {
   }
 };
 
-// Optional role-based authorization
 const authorize = (...roles) => (req, res, next) => {
   if (!req.user) return res.status(401).json({ msg: "Not authenticated" });
 

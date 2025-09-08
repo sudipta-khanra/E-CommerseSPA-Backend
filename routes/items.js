@@ -1,20 +1,17 @@
 const express = require("express");
 const router = express.Router();
 const Item = require("../models/Item");
-const { auth } = require("../middleware/authMiddleware"); // ✅ use destructured auth
+const { auth } = require("../middleware/authMiddleware"); 
 
-// ✅ Get all items for logged-in user
 router.get("/", auth, async (req, res) => {
   try {
     const { category, minPrice, maxPrice } = req.query;
     const filter = { user: req.user.id };
 
-    // Only add category filter if it exists and is not empty
     if (category && category.trim() !== "") {
       filter.category = { $regex: category, $options: "i" };
     }
 
-    // Only add price filter if minPrice or maxPrice exists
     if ((minPrice && !isNaN(minPrice)) || (maxPrice && !isNaN(maxPrice))) {
       filter.price = {};
       if (minPrice && !isNaN(minPrice)) filter.price.$gte = Number(minPrice);
@@ -30,7 +27,6 @@ router.get("/", auth, async (req, res) => {
 });
 
 
-// ✅ Add new item
 router.post("/", auth, async (req, res) => {
   try {
     const newItem = new Item({ ...req.body, user: req.user.id });
@@ -42,7 +38,6 @@ router.post("/", auth, async (req, res) => {
   }
 });
 
-// ✅ Update item
 router.put("/:id", auth, async (req, res) => {
   try {
     const item = await Item.findById(req.params.id);
@@ -61,7 +56,6 @@ router.put("/:id", auth, async (req, res) => {
   }
 });
 
-// ✅ Delete item
 router.delete("/:id", auth, async (req, res) => {
   try {
     const item = await Item.findById(req.params.id);

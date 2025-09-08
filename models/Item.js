@@ -5,7 +5,7 @@ const ItemSchema = new mongoose.Schema({
   category: { type: String },
   price: { type: Number, required: true },
   description: { type: String },
-  user: {                      // 👈 link each product to the user who created it
+  user: {                     
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
     required: true,
